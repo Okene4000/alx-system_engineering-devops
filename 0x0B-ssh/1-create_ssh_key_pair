@@ -6,4 +6,4 @@ KEY_PASS="betty"
 KEY_BITS="4096"
 
 
-ssh-keygen -t rsa -b 4096 -f file_to_save_key -N
+ssh-keygen -t rsa -b 4096 -f file_to_save_key -N passphrase
