@@ -1,6 +1,3 @@
 #!/usr/bin/env bash
 
-ssh ubuntu@104.196.50.234 -i ~/.ssh/school
-mkdir -p ~/.ssh && touch ~/.ssh/authorized_keys
-chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys 
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDGM7gLAg7QXLLu7O14f0YHMmr+V65neS5IMRs7irCsQJ7dKtPP4VjDL4y3O8KwRItTh+9l6Q/ipMjnwGVFmEDQA3qHC91e+vE7vi/qpXHpNixElmhdlr/oniuTr9s6sOwcPSFTkPOo1ciP3cNZ7TNhdghXLAyI4Ndx+OZnTpbf64MFYsW/mLvQhNDXF+2pHuHvkLtEAfHrTgiiUngaidQCHB+8YXR9RJ2UTqKK9euhpI03lWRXVOxcrse1qqWHq/yGX9qOpSoOZLuT5zVM7Cz40kIKmWvMFkqRCxLkDT+4yuRs1ZhIH+7IRFFhkda+UqvG5Tcr4EUW64u6mBrxi3J4auZ0SAC3jtMf47ZYDxmw4FGiEOcwaOoPBija6EzQ3aXPGAPHFr3DGUDNhdFc8l9fMIowIj74o4UzN7SBCCgi9MWpMV7OuhVYPlqWqYzrLIdbXHmpvY5kUUIm8+Neje0yysERB0bsTj2hCULcpCNOQZHx5E9zK6bm2QNXzpqgQYM= okeneblessing@gmail.com
