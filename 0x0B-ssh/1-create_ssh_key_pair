@@ -1,9 +1,4 @@
 #!/usr/bin/env bash
-# Create an ssh key pair
+# generating ssh key pairs
 
-KEY_NAME="school"
-KEY_PASS="betty"
-KEY_BITS="4096"
-
-
-ssh-keygen -t rsa -b 4096 -f file_to_save_key -N passphrase
+ssh-keygen -t rsa -b 4096 -P betty -f school
