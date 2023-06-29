@@ -1,41 +1,61 @@
-$default_site_loc = '/etc/nginx/sites-available/default'
-$default_site = 'https://raw.githubusercontent.com/Okene4000/alx-system_engineering-devops/master/0x0C-web_server/default-site'
+# manifest to install and configure nginx server
+# Usage: sudo puppet apply path/to/nginx.pp
 
-# Run apt-get update
-exec { 'apt-update':
-  command => '/usr/bin/apt-get update'
-}
-
-# Install nginx
 package { 'nginx':
-  ensure  => installed,
-  require => Exec['apt-update'],
+  ensure => installed,
 }
 
-# Create a new index.html
-file { 'Create index.html':
-  require => Package['nginx'],
-  path    => '/var/www/html/index.html',
-  content => 'Hello World!\n'
+file {'/var/www/html/index.nginx-debian.html':
+  ensure => absent,
 }
 
-# Create a new error page
-file { 'Create 404.html':
-  require => Package['nginx'],
-  path    => '/var/www/html/404.html',
-  content => 'Ceci n\'est pas une page\n'
+file {'/var/www/html/index.html':
+  ensure  => present,
+  content => 'Hello World!',
 }
 
-# Replace default site config
+file {'/var/www/html/404.html':
+  ensure  => present,
+  content => 'Ceci n\'est pas une page',
+}
+
 file { '/etc/nginx/sites-available/default':
   ensure  => file,
-  require => Package['nginx']
-}-> exec { 'Replace config':
-  command => "/usr/bin/curl ${default_site} > ${default_site_loc}"
+  content => @(EOF)
+    server {
+      listen 80 default_server;
+      listen [::]:80 default_server;
+
+      root /var/www/html;
+      index index.html;
+
+      location / {
+        try_files $uri $uri/ =404;
+      }
+
+      location /redirect_me {
+        return 301 'https://www.youtube.com/watch?v=axlUv9evU2k';
+      }
+
+      # Redirect error page
+      error_page 404 /404.html;
+      location = /404.html {
+        internal;
+        default_type text/html;
+        return 404 "Ceci n\'est pas une page\n";
+      }
+    }
+  EOF
 }
 
-# Start nginx service
-service { 'nginx':
-  ensure  => running,
-  require => Exec['Replace config'],
+file { '/etc/nginx/sites-enabled/default':
+  ensure => link,
+  target => '/etc/nginx/sites-available/default',
 }
+
+service { 'nginx':
+  ensure    => 'running',
+  enable    => true,
+  subscribe => File['/etc/nginx/sites-available/default'],
+}
+
