@@ -1,10 +1,6 @@
-#the procedure for installing firewall ufw which blocks incoming traffic and allows outgoing
-#Author: Okeroghene Okene
-
-sudo ufw status
-sudo ufw disable
 sudo apt-get -y update
 sudo apt-get -y install ufw
+sudo ufw disable
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
 sudo systemct1 stop ufw
